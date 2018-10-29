@@ -31,13 +31,13 @@ public class Warehouse {
 	}*/
 	
 	synchronized public void setRedNumber(int redNumber) {
-		if (redInStock) {
+		/*if (redInStock) {
 			try {
 				wait();
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-		}
+		}*/
 
 		System.out.println("Produced red number: " + redNumber);
 		redInStock = true;
@@ -61,13 +61,13 @@ public class Warehouse {
 
 	synchronized public void setBlueNumber(int blueNumber) {
 
-		if (blueInStock) {
+		/*if (blueInStock) {
 			try {
 				wait();
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-		}
+		}*/
 
 		System.out.println("Produced blue number: " + blueNumber);
 		blueInStock = true;
@@ -86,7 +86,7 @@ public class Warehouse {
 			blueRan = blueList.get( blueList.size() * (int) Math.random()); 
 			list.add(redRan);
 			list.add(blueRan);
-			System.out.println("taking from the warehouse bothNumber number: " + blueNumber + " --- " + redNumber);
+			System.out.println("taking from the warehouse bothNumber number: " + redRan + " --- " + blueRan);
 			
 			for(int i = 0; i<redList.size(); i++) {
 				if(redList.get(i) == redRan) {
@@ -102,7 +102,7 @@ public class Warehouse {
 				}
 			}
 			
-			notifyAll();
+			notify();
 			
 		}
 
