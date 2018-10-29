@@ -21,11 +21,13 @@ public class AppStart {
 		Thread consumerThread2 = new Thread(consumer2);
 		Thread consumerThread3 = new Thread(consumer3);
 		
+		
 		producerRedThread.start();
 		producerBlueThread.start();
 		consumerThread1.start();
 		consumerThread2.start();
 		consumerThread3.start();
+	
 		
 	}
 

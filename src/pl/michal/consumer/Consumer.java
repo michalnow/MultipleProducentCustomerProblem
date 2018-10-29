@@ -49,7 +49,7 @@ public class Consumer implements Runnable {
 				list.add(number);
 			}
 		}
-		System.out.println(getName() + getList());	
+		//System.out.println(getName() + getList());	
 	}
 
 }
