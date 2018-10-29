@@ -13,7 +13,7 @@ public class RedProducer implements Runnable{
 	public void run() {
 		for(int i=1;i<11;i++) {
 			try {
-				Thread.sleep((int) (10* Math.random()));
+				Thread.sleep((int) (1000* Math.random()));
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}

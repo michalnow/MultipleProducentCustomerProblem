@@ -27,7 +27,6 @@ public class Warehouse {
 	synchronized public void setRedNumber(int redNumber) {
 
 		if (redInStock) {
-			//System.out.println("bbb");
 			try {
 				wait();
 			} catch (InterruptedException e) {
@@ -58,7 +57,6 @@ public class Warehouse {
 	synchronized public void setBlueNumber(int blueNumber) {
 
 		if (blueInStock) {
-			//System.out.println("aaa");
 			try {
 				wait();
 			} catch (InterruptedException e) {
@@ -74,17 +72,16 @@ public class Warehouse {
 	
 	synchronized public List<Integer> getBoth(){
 		
-		List list = list = new ArrayList<Integer>();
+		List<Integer> list = new ArrayList<Integer>();
 		
-		//System.out.println(blueInStock +"   " + redInStock);
 		if(blueInStock && redInStock) {
-			
-			//System.out.println("elo");
+		
 			list.add(getRedNumber());
 			list.add(getBlueNumber());
-			System.out.println("Taking from the warehouse bothNumber number: " + blueNumber + " --- " + redNumber);
+			System.out.println("taking from the warehouse bothNumber number: " + blueNumber + " --- " + redNumber);
 			notifyAll();
 		}
+
 		
 		return list;
 		

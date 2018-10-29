@@ -11,9 +11,9 @@ public class AppStart {
 		Warehouse warehouse = new Warehouse();
 		RedProducer redProducer = new RedProducer(warehouse);
 		BlueProducer blueProducer = new BlueProducer(warehouse);
-		Consumer consumer1 = new Consumer(warehouse);
-		Consumer consumer2 = new Consumer(warehouse);
-		Consumer consumer3 = new Consumer(warehouse);
+		Consumer consumer1 = new Consumer(warehouse,"1111");
+		Consumer consumer2 = new Consumer(warehouse,"2222");
+		Consumer consumer3 = new Consumer(warehouse,"3333");
 		
 		Thread producerRedThread = new Thread(redProducer);
 		Thread producerBlueThread = new Thread(blueProducer);
@@ -24,6 +24,9 @@ public class AppStart {
 		producerRedThread.start();
 		producerBlueThread.start();
 		consumerThread1.start();
+		consumerThread2.start();
+		consumerThread3.start();
+		
 	}
 
 }
