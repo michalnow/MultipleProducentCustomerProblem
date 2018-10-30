@@ -2,6 +2,7 @@ package pl.michal.warehouse;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Warehouse {
 	private int redNumber;
@@ -15,99 +16,92 @@ public class Warehouse {
 		redList = new ArrayList<Integer>();
 		blueList = new ArrayList<Integer>();
 	}
-	
-	/*synchronized public int getRedNumber() {
 
-		if (!redInStock)
-			try {
-				wait();
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
+	/*
+	 * synchronized public int getRedNumber() {
+	 * 
+	 * if (!redInStock) try { wait(); } catch (InterruptedException e) {
+	 * e.printStackTrace(); }
+	 * 
+	 * redInStock = false;
+	 * 
+	 * return redNumber; }
+	 */
 
-		redInStock = false;
-
-		return redNumber;
-	}*/
-	
 	synchronized public void setRedNumber(int redNumber) {
-		/*if (redInStock) {
-			try {
-				wait();
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-		}*/
+		/*
+		 * if (redInStock) { try { wait(); } catch (InterruptedException e) {
+		 * e.printStackTrace(); } }
+		 */
 
 		System.out.println("Produced red number: " + redNumber);
 		redInStock = true;
 		this.redNumber = redNumber;
 		redList.add(redNumber);
-		
+		/*try {
+			wait();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}*/
+
 	}
 
-	/*synchronized public int getBlueNumber() {
-		if (!blueInStock)
-			try {
-				wait();
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-
-		blueInStock = false;
-
-		return blueNumber;
-	}*/
+	/*
+	 * synchronized public int getBlueNumber() { if (!blueInStock) try { wait(); }
+	 * catch (InterruptedException e) { e.printStackTrace(); }
+	 * 
+	 * blueInStock = false;
+	 * 
+	 * return blueNumber; }
+	 */
 
 	synchronized public void setBlueNumber(int blueNumber) {
 
-		/*if (blueInStock) {
-			try {
-				wait();
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-		}*/
-
+		/*
+		 * if (blueInStock) { try { wait(); } catch (InterruptedException e) {
+		 * e.printStackTrace(); } }
+		 */
 		System.out.println("Produced blue number: " + blueNumber);
 		blueInStock = true;
 		this.blueNumber = blueNumber;
 		blueList.add(blueNumber);
+		/*try {
+			wait();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}*/
 		
 	}
-	
-	synchronized public List<Integer> getBoth(){
-		int redRan = 0 ; 
-		int blueRan = 0 ; 
+
+	synchronized public List<Integer> getBoth() {
+		Random rand = new Random();
+		int redRan = 0;
+		int blueRan = 0;
 		List<Integer> list = new ArrayList<Integer>();
-		
-		if(blueList.size() != 0 && redList.size() != 0) {
-			redRan = redList.get( redList.size() * (int) Math.random()); 
-			blueRan = blueList.get( blueList.size() * (int) Math.random()); 
-			list.add(redRan);
-			list.add(blueRan);
-			System.out.println("taking from the warehouse bothNumber number: " + redRan + " --- " + blueRan);
-			
-			for(int i = 0; i<redList.size(); i++) {
-				if(redList.get(i) == redRan) {
-					redList.remove(i);
-					break;
-				}
+		if(blueList.size() == 0 || redList.size() == 0) {
+			try {
+				wait();
+			} catch (InterruptedException e) {
+				
+				e.printStackTrace();
 			}
+		} 
 			
-			for(int i = 0; i<blueList.size(); i++) {
-				if(blueList.get(i) == blueRan) {
-					blueList.remove(i);
-					break;
-				}
-			}
-			
-			notify();
-			
+			list.add(redList.get(0));
+			list.add(blueList.get(0));
+			System.out.println("taking from the warehouse bothNumber number: " + redList.get(0) + " --- " + blueList.get(0));
+
+			redList.remove(redRan);
+			blueList.remove(blueRan);
+			notifyAll();
+	
+			return list;
 		}
+		
 
 		
-		return list;
-		
+
 	}
-}
+

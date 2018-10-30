@@ -1,5 +1,9 @@
 package pl.michal.app;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+
 import pl.michal.consumer.Consumer;
 import pl.michal.producer.BlueProducer;
 import pl.michal.producer.RedProducer;
@@ -24,10 +28,22 @@ public class AppStart {
 		
 		producerRedThread.start();
 		producerBlueThread.start();
-		consumerThread1.start();
-		consumerThread2.start();
-		consumerThread3.start();
-	
+		//consumerThread1.start();
+		//consumerThread2.start();
+		//consumerThread3.start();
+		ExecutorService executor = Executors.newFixedThreadPool(1);
+		
+		executor.submit(consumerThread1);
+		executor.submit(consumerThread2);
+		executor.submit(consumerThread3);
+		executor.shutdown();
+		try {
+			executor.awaitTermination(1, TimeUnit.SECONDS);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		
+		
 		
 	}
 

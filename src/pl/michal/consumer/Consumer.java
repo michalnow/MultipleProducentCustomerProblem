@@ -14,6 +14,7 @@ public class Consumer implements Runnable {
 	public Consumer(Warehouse warehouse,String name) {
 		this.warehouse = warehouse;
 		this.name = name;
+		list = new ArrayList<Integer>();
 	}
 		
 	
@@ -37,10 +38,10 @@ public class Consumer implements Runnable {
 
 	@Override
 	public void run() {
-		list = new ArrayList<Integer>();
-		for (int i = 1; i < 11; i++) {
+		while(list.size() != 4) {
+			
 			try {
-				Thread.sleep((int) (10000 * Math.random())+1000);
+				Thread.sleep(2500 + (int) (1000 * Math.random()));
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
@@ -48,8 +49,11 @@ public class Consumer implements Runnable {
 			for (int number : warehouse.getBoth()) {
 				list.add(number);
 			}
+			
+			System.out.println();
 		}
-		System.out.println(getName() + getList());	
+		System.out.println("Products of " + getName() +" = " + getList());	
+		System.out.println();
 	}
 
 }
